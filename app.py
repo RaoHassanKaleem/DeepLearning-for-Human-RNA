@@ -79,8 +79,9 @@ if st.sidebar.button("SUBMIT"):
         for iter in range(final_df.shape[0]):
             temp_seq =  final_df.iloc[iter, 1]
             fv_array = fe.extractFeature(temp_seq)
-            pred_label = np.argmax(model.predict(fv_array), axis=-1)
-            if(pred_label==1):
+            score = np.argmax(model.predict(fv_array), axis=-1)
+            pred_label = np.round_(score, decimals=0, out=None)
+            if(pred_label==1).any():
                 pred_label="Positive"
             else:
                 pred_label="Negative"
