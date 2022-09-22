@@ -23,7 +23,7 @@ lstm_out = 196
 
 def createModel():
     model = Sequential()
-    model.add(Embedding(max_fatures, embed_dim,input_length = fe.X_shape[1]))
+    model.add(Embedding(max_fatures, embed_dim,input_length = 1))
     model.add(SpatialDropout1D(0.4))
     model.add(LSTM(lstm_out, dropout=0.2, recurrent_dropout=0.2))
     model.add(Dense(2,activation='softmax'))
