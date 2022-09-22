@@ -15,7 +15,6 @@ def extractFeature(seq):
     tokenizer.fit_on_texts(seq)
     X = tokenizer.texts_to_sequences(seq)
     X = pad_sequences(X)
-    X.append(X)
     return X
 
 
