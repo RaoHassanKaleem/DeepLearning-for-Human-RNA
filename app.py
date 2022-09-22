@@ -20,6 +20,7 @@ def seqValidator(seq):
 max_fatures = 500
 embed_dim = 128
 lstm_out = 196
+batch_size = 32
 
 def createModel():
     model = Sequential()
@@ -79,7 +80,7 @@ if st.sidebar.button("SUBMIT"):
         for iter in range(final_df.shape[0]):
             temp_seq = final_df.iloc[iter, 1]
             fv_array = fe.extractFeature(temp_seq)
-            score = model.predict(fv_array)
+            score = np.argmax(model.predict(fv_array,batch_size = batch_size), axis=-1)
             pred_label = np.round_(score, decimals=0, out=None)
             print(pred_label)
             if(pred_label==1).all():
