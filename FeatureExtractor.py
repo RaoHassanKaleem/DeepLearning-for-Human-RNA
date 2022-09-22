@@ -12,8 +12,8 @@ from Bio import SeqIO
 def extractFeature(seq):
     max_fatures = 500
     tokenizer = Tokenizer(num_words=max_fatures, split=' ')
-    tokenizer.fit_on_texts(seq.values)
-    X = tokenizer.texts_to_sequences(seq.values)
+    tokenizer.fit_on_texts(seq).values
+    X = tokenizer.texts_to_sequences(seq).values
     X = pad_sequences(X)
     return X
 
