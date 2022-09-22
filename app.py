@@ -78,6 +78,10 @@ if st.sidebar.button("SUBMIT"):
         model = createModel()
         for iter in range(final_df.shape[0]):
             temp_seq =  final_df.iloc[iter, 1]
+	    tokenizer = Tokenizer(num_words=max_fatures, split=' ')
+            tokenizer.fit_on_texts(df['Sequences'].values)
+            X = tokenizer.texts_to_sequences(df['Sequences'].values)
+            X = pad_sequences(X)
             fv_array = fe.extractFeature(temp_seq)
             score = model.predict(fv_array)
             pred_label = np.round_(score, decimals=0, out=None)
