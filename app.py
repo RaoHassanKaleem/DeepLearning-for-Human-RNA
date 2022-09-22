@@ -6,6 +6,7 @@ from PIL import Image
 import FeatureExtractor as fe
 from keras.layers import LSTM
 from keras.models import Sequential
+from keras.layers import Dense, Embedding, LSTM, SpatialDropout1D
 from keras.layers.core import Dense, Dropout
 import numpy as np
 
