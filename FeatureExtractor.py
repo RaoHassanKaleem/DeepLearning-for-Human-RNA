@@ -1,4 +1,4 @@
-# !pip install BioPython
+#!pip install BioPython
 from sklearn.feature_extraction.text import CountVectorizer
 from keras.preprocessing.text import Tokenizer
 from keras_preprocessing.sequence import pad_sequences
@@ -13,4 +13,4 @@ def seqToMat(seq):
     tokenizer.fit_on_texts(seq.values)
     X = tokenizer.texts_to_sequences(seq.values)
     X = pad_sequences(X)
-    return pad_sequences
+    return X
