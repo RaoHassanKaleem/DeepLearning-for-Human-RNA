@@ -80,7 +80,7 @@ if st.sidebar.button("SUBMIT"):
             temp_seq =  final_df.iloc[iter, 1]
             fv_array = fe.extractFeature(temp_seq)
             pred_label = np.argmax(model.predict(fv_array), axis=-1)
-            if(pred_label==1).any():
+            if(pred_label==1):
                 pred_label="Positive"
             else:
                 pred_label="Negative"
