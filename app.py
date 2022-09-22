@@ -23,7 +23,7 @@ lstm_out = 196
 
 def createModel():
     model = Sequential()
-    model.add(Embedding(max_fatures, embed_dim,input_length = 1))
+    model.add(Embedding(max_fatures, embed_dim,input_length = final_df.shape[0]))
     model.add(SpatialDropout1D(0.4))
     model.add(LSTM(lstm_out, dropout=0.2, recurrent_dropout=0.2))
     model.add(Dense(2,activation='softmax'))
@@ -81,7 +81,7 @@ if st.sidebar.button("SUBMIT"):
             fv_array = fe.extractFeature(temp_seq)
             score = model.predict(fv_array)
             pred_label = np.round_(score, decimals=0, out=None)
-            if(pred_label.any()==1):
+            if(pred_label==1):
                 pred_label="Positive"
             else:
                 pred_label="Negative"
