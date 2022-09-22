@@ -80,7 +80,7 @@ if st.sidebar.button("SUBMIT"):
         for iter in range(final_df.shape[0]):
             temp_seq = final_df.iloc[iter, 1]
             fv_array = fe.extractFeature(temp_seq)
-            score = np.argmax(model.predict(fv_array,batch_size = batch_size), axis=-1)
+            score = model.predict(fv_array)
             pred_label = np.round_(score, decimals=0, out=None)
             print(score)
             if(pred_label==1).all():
