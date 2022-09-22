@@ -51,16 +51,15 @@ if st.sidebar.button("SUBMIT"):
     for rec in records:
         seq_id = str(rec.id)
         seq=str(rec.seq)
-        if(seqValidator(seq)):
-            len_seq = len(seq)
-            if (len_seq == 41):
+        len_seq = len(seq)
+        if (len_seq == 41):
                 df_temp = pd.DataFrame([[seq_id, seq,'Complete(1-41)','None']], columns=['Sequence ID', 'Sequence','Indices','Label'] )
                 final_df = pd.concat([final_df,df_temp], ignore_index=True)
-            else:
-                n_seqs = len_seq - 41
-                for i in range(n_seqs + 1):
-                    sub_seq = seq[i: i+41]
-                    df_temp = pd.DataFrame([[seq_id, sub_seq,str(i+1)+'-'+str(i+41),'None']], columns=['Sequence ID', 'Sequence','Indices','Label'] )
+        else:
+             n_seqs = len_seq - 41
+             for i in range(n_seqs + 1):
+                 sub_seq = seq[i: i+41]
+                 df_temp = pd.DataFrame([[seq_id, sub_seq,str(i+1)+'-'+str(i+41),'None']], columns=['Sequence ID', 'Sequence','Indices','Label'] )
                     final_df = pd.concat([final_df,df_temp], ignore_index=True)
 
     fasta_io.close()
