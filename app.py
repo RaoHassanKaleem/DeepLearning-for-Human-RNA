@@ -82,7 +82,7 @@ if st.sidebar.button("SUBMIT"):
             fv_array = fe.extractFeature(temp_seq)
             score = np.argmax(model.predict(fv_array,batch_size = batch_size), axis=-1)
             pred_label = np.round_(score, decimals=0, out=None)
-            print(pred_label)
+            print(score)
             if(pred_label==1).all():
                 pred_label="Positive"
             else:
