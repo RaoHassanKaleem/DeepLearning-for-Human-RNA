@@ -17,7 +17,7 @@ def seqValidator(seq):
 
     return True
 
-
+max_fatures = 500
 
 def createModel():
     model = Sequential()
