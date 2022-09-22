@@ -13,4 +13,12 @@ def seqToMat(seq):
     tokenizer.fit_on_texts(seq.values)
     X = tokenizer.texts_to_sequences(seq.values)
     X = pad_sequences(X)
-    return X
+    return seq
+
+def extractFeature (seq):
+    mainVec = calcFV(seq.lower())
+    encs = replace_seq(seq.lower())
+    for x in encs:
+        mainVec.append(x)
+    fv_array=np.asarray(mainVec).reshape((-1, 1,1))
+    return fv_array
