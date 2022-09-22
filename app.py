@@ -13,7 +13,10 @@ icon = Image.open('fav.png')
 st.set_page_config(page_title='LSTM-Deep', page_icon = icon)
 
 def seqValidator(seq):
-    for i in range(len(seq)):
+
+    return True
+
+
 
 def createModel():
     model = Sequential()
