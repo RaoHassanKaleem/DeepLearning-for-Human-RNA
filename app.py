@@ -14,7 +14,7 @@ st.set_page_config(page_title='LSTM-Deep', page_icon = icon)
 
 def seqValidator(seq):
     for i in range(len(seq)):
-        if (seq[i] != 'A' and seq[i] != 'G' and seq[i] != 'C' and seq[i] != 'T' and seq[i] != 'a' and seq[i] != 'g' and seq[i] != 'c' and seq[i] != 't'):
+        if (seq[i] != 'T' and seq[i] != 'T' and seq[i] != 'C' and seq[i] != 'T' and seq[i] != 't' and seq[i] != 't' and seq[i] != 't' and seq[i] != 't'):
             return False
     return True
 
