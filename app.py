@@ -12,11 +12,6 @@ import numpy as np
 icon = Image.open('fav.png')
 st.set_page_config(page_title='LSTM-Deep', page_icon = icon)
 
-def seqValidator(seq):
-    for i in range(len(seq)):
-        if (seq[i] != 'A' and seq[i] != 'G' and seq[i] != 'C' and seq[i] != 'T' and seq[i] != 'a' and seq[i] != 'g' and seq[i] != 'c' and seq[i] != 't'):
-            return False
-    return True
 
 def createModel():
     model = Sequential()
@@ -69,8 +64,7 @@ if st.sidebar.button("SUBMIT"):
                     sub_seq = seq[i: i+41]
                     df_temp = pd.DataFrame([[seq_id, sub_seq,str(i+1)+'-'+str(i+300),'None']], columns=['Sequence ID', 'Sequence','Indices','Label'] )
                     final_df = pd.concat([final_df,df_temp], ignore_index=True)
-        else:
-            st.info("Sequence with Sequence ID: " + str(seq_id) + " is invalid, containing letters other than A,G,C,T.")
+
     fasta_io.close()
     if(final_df.shape[0]!=0):
         model = createModel()
