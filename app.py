@@ -18,6 +18,8 @@ def seqValidator(seq):
     return True
 
 max_fatures = 500
+embed_dim = 128
+lstm_out = 196
 
 def createModel():
     model = Sequential()
