@@ -78,7 +78,7 @@ if st.sidebar.button("SUBMIT"):
         model = createModel()
         for iter in range(final_df.shape[0]):
             temp_seq = final_df.iloc[iter, 1]
-	    fv_array = fe.extractFeature(temp_seq)
+            fv_array = fe.extractFeature(temp_seq)
             score = model.predict(fv_array)
             pred_label = np.round_(score, decimals=0, out=None)
             print(pred_label)
