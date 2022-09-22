@@ -53,16 +53,14 @@ if st.sidebar.button("SUBMIT"):
         seq=str(rec.seq)
         if(seqValidator(seq)):
             len_seq = len(seq)
-            if (len_seq < 41):
-                st.info("Please input the sequence again. Length should be 41 or greater. Currently length is " + str(len_seq))
-            elif (len_seq == 41):
+            if (len_seq == 41):
                 df_temp = pd.DataFrame([[seq_id, seq,'Complete(1-41)','None']], columns=['Sequence ID', 'Sequence','Indices','Label'] )
                 final_df = pd.concat([final_df,df_temp], ignore_index=True)
             else:
                 n_seqs = len_seq - 41
                 for i in range(n_seqs + 1):
                     sub_seq = seq[i: i+41]
-                    df_temp = pd.DataFrame([[seq_id, sub_seq,str(i+1)+'-'+str(i+300),'None']], columns=['Sequence ID', 'Sequence','Indices','Label'] )
+                    df_temp = pd.DataFrame([[seq_id, sub_seq,str(i+1)+'-'+str(i+41),'None']], columns=['Sequence ID', 'Sequence','Indices','Label'] )
                     final_df = pd.concat([final_df,df_temp], ignore_index=True)
 
     fasta_io.close()
