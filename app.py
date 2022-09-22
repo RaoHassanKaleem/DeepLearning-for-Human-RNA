@@ -12,6 +12,11 @@ import numpy as np
 icon = Image.open('fav.png')
 st.set_page_config(page_title='LSTM-Deep', page_icon = icon)
 
+def seqValidator(seq):
+    for i in range(len(seq)):
+        if (seq[i] != 'A' and seq[i] != 'G' and seq[i] != 'C' and seq[i] != 'T' and seq[i] != 'a' and seq[i] != 'g' and seq[i] != 'c' and seq[i] != 't'):
+            return False
+    return True
 
 def createModel():
     model = Sequential()
@@ -45,23 +50,27 @@ if st.button('Example'):
 
 if st.sidebar.button("SUBMIT"):
     if(fasta_string==""):
-        st.info("Please input the sequence first. Length should be 41 or greater.")
+        st.info("Please input the sequence first. Length should be 300 or greater.")
     fasta_io = StringIO(fasta_string) 
     records = SeqIO.parse(fasta_io, "fasta") 
     for rec in records:
         seq_id = str(rec.id)
         seq=str(rec.seq)
-        len_seq = len(seq)
-        if (len_seq == 41):
-                df_temp = pd.DataFrame([[seq_id, seq,'Complete(1-41)','None']], columns=['Sequence ID', 'Sequence','Indices','Label'] )
+        if(seqValidator(seq)):
+            len_seq = len(seq)
+            if (len_seq < 300):
+                st.info("Please input the sequence again. Length should be 300 or greater. Currently length is " + str(len_seq))
+            elif (len_seq == 300):
+                df_temp = pd.DataFrame([[seq_id, seq,'Complete(1-300)','None']], columns=['Sequence ID', 'Sequence','Indices','Label'] )
                 final_df = pd.concat([final_df,df_temp], ignore_index=True)
-        else:
-             n_seqs = len_seq - 41
-             for i in range(n_seqs + 1):
-                 sub_seq = seq[i: i+41]
-                 df_temp = pd.DataFrame([[seq_id, sub_seq,str(i+1)+'-'+str(i+41),'None']], columns=['Sequence ID', 'Sequence','Indices','Label'] )
+            else:
+                n_seqs = len_seq - 300
+                for i in range(n_seqs + 1):
+                    sub_seq = seq[i: i+300]
+                    df_temp = pd.DataFrame([[seq_id, sub_seq,str(i+1)+'-'+str(i+300),'None']], columns=['Sequence ID', 'Sequence','Indices','Label'] )
                     final_df = pd.concat([final_df,df_temp], ignore_index=True)
-
+        else:
+            st.info("Sequence with Sequence ID: " + str(seq_id) + " is invalid, containing letters other than A,G,C,T.")
     fasta_io.close()
     if(final_df.shape[0]!=0):
         model = createModel()
@@ -71,9 +80,9 @@ if st.sidebar.button("SUBMIT"):
             score = model.predict(fv_array)
             pred_label = np.round_(score, decimals=0, out=None)
             if(pred_label==1):
-                pred_label="Positive"
+                pred_label="ORI"
             else:
-                pred_label="Negative"
+                pred_label="Non-ORI"
             final_df.iloc[iter, 3] = str(pred_label)
 
     st.dataframe(final_df)
